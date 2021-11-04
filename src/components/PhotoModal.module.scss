@@ -1,0 +1,149 @@
+@import '../styles';
+
+.modalImage {
+    width: 100%;
+    height: 220px;
+
+    background-position-y: 20%;
+    background-size: cover;
+}
+
+.desktopImage {
+    display: none;
+}
+
+.imageContainer {
+    background: $dark-gray;
+}
+
+.infoContainer {
+    padding: 18px 24px;
+
+    background: $dark-gray;
+}
+
+.modalTitle {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.likeButton {
+    position: absolute;
+    z-index: 1;
+    top: 12px;
+    left: 12px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 10px;
+
+    cursor: pointer;
+    transition: background-color 0.1s linear;
+
+    color: $text-color;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+
+    gap: 9px;
+}
+
+.likedButton {
+    background-color: $blue;
+}
+
+.profileIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 100%;
+    background-color: $light-gray;
+}
+
+.authorName {
+    display: flex;
+    align-items: center;
+    align-items: flex-start;
+    flex-grow: 1;
+
+    padding-bottom: 16px;
+
+    color: $extra-light-gray;
+
+    font-size: 18px;
+
+    gap: 5px;
+}
+
+.cameraDetails {
+    display: grid;
+
+    padding-top: 24px;
+
+    border-top: 1px solid $medium-gray;
+
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.detailLabel {
+    color: $label-color;
+
+    font-size: 12px;
+}
+
+.detailValue {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+@include for-laptop {
+    .modalContainer {
+        display: flex;
+
+        height: 100%;
+    }
+
+    .imageContainer {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 50%;
+
+        background: rgba($dark-gray, 0.8);
+    }
+
+    .modalImage {
+        display: none;
+    }
+
+    .desktopImage {
+        display: block;
+
+        width: 100%;
+    }
+
+    .infoContainer {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        width: 50%;
+        padding: 80px 24px;
+    }
+
+    .likeButton {
+        top: 12px;
+        left: 50%;
+    }
+}

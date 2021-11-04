@@ -1,0 +1,15 @@
+$dark-gray: #2b2b2b;
+$medium-gray: #3c3c3c;
+$light-gray: #828282;
+$extra-light-gray: #bdbdbd;
+$blue: #2d9cdb;
+
+$background-color: $dark-gray !default;
+$sidebar-background-color: $medium-gray !default;
+$active-background: $light-gray !default;
+$text-color: #ffffff !default;
+$label-color: $light-gray !default;
+
+$breakpoints: (
+    md: 992px,
+);

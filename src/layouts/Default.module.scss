@@ -1,0 +1,27 @@
+@import '../styles';
+
+.container {
+    display: grid;
+
+    padding: 24px;
+
+    grid-template-areas:
+        'main'
+        'sidebar';
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.main {
+    grid-area: main;
+}
+
+@include for-laptop {
+    .container {
+        padding: 24px 114px;
+
+        grid-template-areas: 'sidebar main';
+    }
+}

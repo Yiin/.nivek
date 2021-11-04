@@ -1,0 +1,35 @@
+@import '../styles';
+
+.container {
+    width: 100%;
+
+    columns: 6 200px;
+    column-gap: 1rem;
+}
+
+.imageWrapper {
+    position: relative;
+}
+
+.liked {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 10px;
+    background-color: $blue;
+}
+
+.image {
+    max-width: 100%;
+    margin: 5px;
+
+    cursor: pointer;
+}
