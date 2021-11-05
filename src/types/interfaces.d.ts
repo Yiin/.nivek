@@ -30,7 +30,7 @@ export interface User {
     username: string;
 }
 
-export interface Image {
+export interface Photo {
     id: string;
     created_at: string;
     updated_at: string;

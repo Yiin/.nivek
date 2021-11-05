@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import useCachedState from '../../hooks/useCachedState';
 import useUnsplash from '../../hooks/useUnsplash';
-import { Image } from '../../types/interfaces';
+import { Photo } from '../../types/interfaces';
 import PhotosContext, { Context } from './context';
 
 interface Props {
@@ -9,27 +9,32 @@ interface Props {
 }
 
 const PhotosContextProvider = ({ children }: Props) => {
-    const { photos: loadedPhotos, getPhoto } = useUnsplash();
-    const [photos, setPhotos] = useCachedState<Image[]>('PHOTOS', []);
+    const { listPhotos, getPhoto } = useUnsplash();
+    const [photos, setPhotos] = useCachedState<Photo[]>('PHOTOS', []);
     const [likedPhotosIds, setLikedPhotosIds] = useCachedState<string[]>(
         'LIKED_PHOTOS',
         []
     );
 
     useEffect(() => {
-        setPhotos([
-            ...loadedPhotos,
-            ...photos.filter(
-                (photo) =>
-                    !loadedPhotos.some(
-                        (loadedPhoto) => photo.id === loadedPhoto.id
-                    )
-            ),
-        ]);
-    }, [loadedPhotos]);
+        const run = async () => {
+            const loadedPhotos = await listPhotos();
+
+            setPhotos([
+                ...loadedPhotos,
+                ...photos.filter(
+                    (photo) =>
+                        !loadedPhotos.some(
+                            (loadedPhoto) => photo.id === loadedPhoto.id
+                        )
+                ),
+            ]);
+        };
+        run();
+    }, []);
 
     const toggleLike = useCallback(
-        (photo: Image) => {
+        (photo: Photo) => {
             if (likedPhotosIds.includes(photo.id)) {
                 setLikedPhotosIds(
                     likedPhotosIds.filter((id) => id !== photo.id)
@@ -42,7 +47,7 @@ const PhotosContextProvider = ({ children }: Props) => {
     );
 
     const isLiked = useCallback(
-        (photo: Image) => likedPhotosIds.includes(photo.id),
+        (photo: Photo) => likedPhotosIds.includes(photo.id),
         [likedPhotosIds]
     );
 

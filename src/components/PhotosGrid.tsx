@@ -3,15 +3,15 @@ import styles from './PhotosGrid.module.scss';
 import { ReactComponent as HeartIcon } from '../assets/icons/heart.svg';
 import PhotosContext from '../contexts/PhotosContext/context';
 import PhotoModal from './PhotoModal';
-import { Image, Nullable } from '../types/interfaces';
+import { Photo, Nullable } from '../types/interfaces';
 
 interface Props {
-    photos: Image[];
+    photos: Photo[];
 }
 
 const PhotosGrid = ({ photos }: Props) => {
     const { isLiked } = useContext(PhotosContext);
-    const [activePhoto, setActivePhoto] = useState<Nullable<Image>>(null);
+    const [activePhoto, setActivePhoto] = useState<Nullable<Photo>>(null);
 
     useEffect(() => {
         if (activePhoto) {

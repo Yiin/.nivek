@@ -3,13 +3,13 @@ import { useContext, useEffect } from 'react';
 import { ReactComponent as HeartIcon } from '../assets/icons/heart.svg';
 import { ReactComponent as ProfileIcon } from '../assets/icons/profile.svg';
 import PhotosContext from '../contexts/PhotosContext/context';
-import { Image } from '../types/interfaces';
+import { Photo } from '../types/interfaces';
 import Modal, { Props as ModalProps } from './Modal';
 
 import styles from './PhotoModal.module.scss';
 
 interface Props extends Omit<ModalProps, 'children'> {
-    photo: Image;
+    photo: Photo;
 }
 
 const PhotoModal = ({ photo, ...rest }: Props) => {

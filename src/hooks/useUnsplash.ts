@@ -1,53 +1,50 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Image } from '../types/interfaces';
+import { useCallback } from 'react';
+import { Photo } from '../types/interfaces';
 
 const useUnsplash = () => {
-    const [photos, setPhotos] = useState<Image[]>([]);
-
     const request = useCallback(
-        ({ endpoint, method = 'GET', signal }) =>
-            fetch(`https://api.unsplash.com/${endpoint}`, {
-                method,
-                headers: new Headers({
-                    Authorization: `Client-ID ${process.env.REACT_APP_AUNSPLASH_ACCESS_KEY}`,
-                }),
-                signal,
-            }),
+        ({ endpoint, method = 'GET', signal, query = {} }) => {
+            const queryParams = Object.entries(query)
+                .map((kv) => kv.join('='))
+                .join('&');
+
+            return fetch(
+                `https://api.unsplash.com/${endpoint}?${queryParams}`,
+                {
+                    method,
+                    headers: new Headers({
+                        Authorization: `Client-ID ${process.env.REACT_APP_AUNSPLASH_ACCESS_KEY}`,
+                    }),
+                    signal,
+                }
+            );
+        },
         []
     );
 
-    useEffect(() => {
-        const abortController = new AbortController();
-        const signal = abortController.signal;
+    // https://unsplash.com/documentation#list-photos
+    const listPhotos = useCallback(async ({ page = 1, perPage = 30 } = {}) => {
+        const response = await request({
+            endpoint: `photos`,
+            query: {
+                page,
+                per_page: perPage,
+            },
+        });
 
-        const run = async () => {
-            try {
-                const response = await request({
-                    endpoint: 'photos?page=1&per_page=30',
-                    signal,
-                });
-
-                if (response) {
-                    const loadedPhotos = await response.json();
-
-                    setPhotos(loadedPhotos);
-                }
-            } catch {}
-        };
-        run();
-
-        return () => abortController.abort();
+        return response.json() as Promise<Photo[]>;
     }, []);
 
+    // https://unsplash.com/documentation#get-a-photo
     const getPhoto = useCallback(async (id: string) => {
         const response = await request({
             endpoint: `photos/${id}`,
         });
 
-        return response.json();
+        return response.json() as Promise<Photo>;
     }, []);
 
-    return { photos, getPhoto };
+    return { listPhotos, getPhoto };
 };
 
 export default useUnsplash;

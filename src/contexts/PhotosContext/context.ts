@@ -1,12 +1,12 @@
 import { createContext } from 'react';
-import { Image } from '../../types/interfaces';
+import { Photo } from '../../types/interfaces';
 
 export interface Context {
-    photos: Image[];
-    likedPhotos: Image[];
-    setPhotos(images: Image[]): void;
-    toggleLike(image: Image): void;
-    isLiked(image: Image): boolean;
+    photos: Photo[];
+    likedPhotos: Photo[];
+    setPhotos(images: Photo[]): void;
+    toggleLike(image: Photo): void;
+    isLiked(image: Photo): boolean;
     fetchPhotoInfo(id: string): void;
 }
 
